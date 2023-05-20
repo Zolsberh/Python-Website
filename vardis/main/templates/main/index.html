@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block container  %}
+    <main class="container" style="background-image: url({% static 'image/index.jpg' %})">
+        <div class="item" style="width: 800px; height: 500px; background-color: aliceblue">
+            <h1>Блок 1</h1>
+        </div>
+        <div class="item" style="width: 800px; height: 500px; background-color: aliceblue">
+                <h1>Блок 2</h1>
+            </div>
+        <div class="item" style="width: 800px; height: 500px; background-color: aliceblue">
+                <h1>Блок 3</h1>
+            </div>
+    </main>
+{% endblock %}

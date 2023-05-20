@@ -1,0 +1,21 @@
+body{
+    margin: 0;
+    padding: 0;
+    background: url("../image/backgroud.jpg");
+}
+
+.container{
+    display: block;
+    max-width: 1500px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    align-items: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.item{
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
