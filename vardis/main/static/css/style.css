@@ -6,16 +6,16 @@ body{
 
 .container{
     display: block;
-    max-width: 1500px;
+    max-width: 1200px;
     margin: 0 auto;
     box-sizing: border-box;
     align-items: center;
-    background-size: cover;
+    background-size: auto;
     background-repeat: no-repeat;
 }
 
 .item{
-    margin: 0 auto;
+    margin: 30px auto;
     padding: 20px;
     box-sizing: border-box;
 }
