@@ -14,6 +14,8 @@ class ProductImageInline(admin.StackedInline):
 
 class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('article', 'name',)}
+    # fields = ('article', 'name', 'slug', 'category', 'dimensions', 'description', 'old_price',
+    #           'new_price', 'materials', 'is_new', 'is_top', 'is_availability', 'is_display')
     inlines = [ProductImageInline]
 
 

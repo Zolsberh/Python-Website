@@ -76,6 +76,10 @@ class ProductImage(models.Model):
     image = models.ImageField(upload_to='photos/%Y/%m/%d')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
 
+    class Meta:
+        verbose_name = 'Изображение'
+        verbose_name_plural = 'Изображения'
+
 
 class Material(models.Model):
     name = models.CharField(max_length=255, verbose_name='Наименование')
