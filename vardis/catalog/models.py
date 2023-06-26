@@ -21,10 +21,10 @@ class Catalog(models.Model):
 
         verbose_name = 'Каталог'
         verbose_name_plural = 'Каталоги'
-        ordering = ['-time_created']
+        # ordering = ['-time_created']
 
 
-class Category(models.Model):
+class ProductCategory(models.Model):
     number = models.CharField(max_length=10, verbose_name='Номер')
     name = models.CharField(max_length=255, verbose_name='Категория')
     catalog = models.ForeignKey(Catalog, on_delete=models.PROTECT, verbose_name='Каталог')
@@ -38,11 +38,11 @@ class Category(models.Model):
         return str(self.name)
 
     def get_absolute_url(self):
-        return reverse('category', kwargs={'category_slug': self.slug})
+        return reverse('product_category', kwargs={'product_category_slug': self.slug})
 
     class Meta:
         verbose_name = 'Категорию'
-        verbose_name_plural = 'Категории'
+        verbose_name_plural = 'Категории товара'
 
 
 class Product(models.Model):
@@ -50,12 +50,12 @@ class Product(models.Model):
     name = models.CharField(max_length=255, verbose_name='Наименование')
     slug = models.SlugField(max_length=255, unique=True, verbose_name='URL')
     # photo = models.ImageField(upload_to='photos/%Y/%m/%d', blank=True, verbose_name='Изображение')
-    category = models.ForeignKey(Category, on_delete=models.PROTECT, verbose_name='Категория')
+    category = models.ForeignKey(ProductCategory, on_delete=models.PROTECT, verbose_name='Категория')
     dimensions = models.TextField(blank=True, verbose_name='Габариты')
     description = models.TextField(blank=True, verbose_name='Описание')
     old_price = models.CharField(max_length=100, blank=True, verbose_name='Старая цена')
     new_price = models.CharField(max_length=100, blank=True, verbose_name='Новая цена')
-    materials = models.ManyToManyField('Material')
+    materials = models.ManyToManyField('MaterialCategory', verbose_name='Материал')
     is_new = models.BooleanField(default=True, verbose_name='Новинка')
     is_top = models.BooleanField(default=True, verbose_name='Топ продаж')
     is_availability = models.BooleanField(default=True, verbose_name='Наличие')
@@ -77,8 +77,23 @@ class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
 
     class Meta:
-        verbose_name = 'Изображение'
+        verbose_name = 'Файл'
         verbose_name_plural = 'Изображения'
+
+
+class MaterialCategory(models.Model):
+    name = models.CharField(max_length=255, verbose_name='Наименование')
+    slug = models.SlugField(max_length=255, unique=True, verbose_name='URL')
+
+    def __str__(self):
+        return str(self.name)
+
+    def get_absolute_url(self):
+        return reverse('material_category', kwargs={'material_category_slug': self.slug})
+
+    class Meta:
+        verbose_name = 'Тип материалов'
+        verbose_name_plural = 'Образцы материалов'
 
 
 class Material(models.Model):
@@ -93,5 +108,5 @@ class Material(models.Model):
         return reverse('material', kwargs={'material_slug': self.slug})
 
     class Meta:
-        verbose_name = 'Образец материала'
-        verbose_name_plural = 'Образцы материалов'
+        verbose_name = 'Материал'
+        verbose_name_plural = 'Материалы'
