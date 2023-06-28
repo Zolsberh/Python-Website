@@ -7,8 +7,6 @@ class Catalog(models.Model):
     title = models.CharField(max_length=200, verbose_name='Название каталога')
     slug = models.SlugField(max_length=255, unique=True, verbose_name='URL')
     photo = models.ImageField(upload_to='photos/%Y/%m/%d', blank=True, verbose_name='Изображение')
-    time_created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
-    time_update = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
     is_display = models.BooleanField(default=True, verbose_name='Отображать')
 
     def __str__(self):
@@ -30,17 +28,16 @@ class ProductCategory(models.Model):
     catalog = models.ForeignKey(Catalog, on_delete=models.PROTECT, verbose_name='Каталог')
     slug = models.SlugField(max_length=255, unique=True, verbose_name='URL')
     photo = models.ImageField(upload_to='photos/%Y/%m/%d', blank=True, verbose_name='Изображение')
-    time_created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
-    time_update = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
     is_display = models.BooleanField(default=True, verbose_name='Отображать')
 
     def __str__(self):
-        return str(self.name)
+        return str(f'{self.number}. {self.name}')
 
     def get_absolute_url(self):
         return reverse('product_category', kwargs={'product_category_slug': self.slug})
 
     class Meta:
+        ordering = ['pk']
         verbose_name = 'Категорию'
         verbose_name_plural = 'Категории товара'
 
@@ -100,6 +97,7 @@ class Material(models.Model):
     name = models.CharField(max_length=255, verbose_name='Наименование')
     slug = models.SlugField(max_length=255, unique=True, verbose_name='URL')
     photo = models.ImageField(upload_to='photos/%Y/%m/%d', blank=True, verbose_name='Изображение')
+    category = models.ForeignKey(MaterialCategory, on_delete=models.PROTECT, verbose_name='Образец материалов')
 
     def __str__(self):
         return str(self.name)

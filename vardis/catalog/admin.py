@@ -19,13 +19,12 @@ class ProductAdminForm(forms.ModelForm):
 
 class CatalogAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
-    list_display = ('id', 'title', 'get_html_photo', 'time_created', 'time_update', 'is_display')
+    list_display = ('id', 'title', 'get_html_photo',  'is_display')
     list_display_links = ('id', 'title')
     search_fields = ('title__iregex',)
     list_editable = ('is_display',)
-    list_filter = ('is_display', 'time_created')
-    fields = ('title', 'slug', 'photo', 'get_html_photo', 'is_display',)
-    readonly_fields = ('get_html_photo', 'time_created', 'time_update')
+    list_filter = ('is_display', 'title')
+    readonly_fields = ('get_html_photo', )
 
     def get_html_photo(self, object):
         if object.photo:
@@ -51,7 +50,6 @@ class ProductAdmin(admin.ModelAdmin):
     list_editable = ('is_display',)
     list_filter = ('is_display', 'is_new', 'is_availability')
     save_on_top = True
-    fields = ('name', 'slug', 'get_html_photo', 'is_display',)
     readonly_fields = ('get_html_photo', 'is_new', 'is_availability')
 
     inlines = [ProductImageInline]
@@ -65,6 +63,24 @@ class ProductAdmin(admin.ModelAdmin):
 
 class ProductCategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('number', 'name',)}
+
+    list_display = ('id', 'pc_name', 'get_html_photo', 'is_display')
+    list_display_links = ('id', 'pc_name')
+    search_fields = ('pc_name__iregex', )
+    list_editable = ('is_display',)
+    list_filter = ('is_display',)
+    readonly_fields = ('get_html_photo',)
+
+    def pc_name(self, request):
+        return f'{request.number}. {request.name}'
+
+    pc_name.short_description = 'Название'
+
+    def get_html_photo(self, request):
+        if request.photo:
+            return mark_safe(f'<img src="{request.photo.url}" width="100">')
+
+    get_html_photo.short_description = 'Миниатюра'
 
 
 class MaterialAdmin(admin.ModelAdmin):
