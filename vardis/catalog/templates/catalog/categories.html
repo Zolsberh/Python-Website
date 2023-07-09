@@ -1,0 +1,16 @@
+{% extends 'main/base.html' %}
+{% block container  %}
+    <h1>{{ title }}</h1>
+    <main class="container">
+        <ul class="category-list">
+            {% for category in categories %}
+                <li class="category-item">
+                    <a href="{{ category.get_absolute_url }}">
+                            <img src="{{ category.photo.url }}" alt="{{ category.name }}">
+                            <h3 class="category-item-name">{{ category.name }}</h3>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </main>
+{% endblock %}

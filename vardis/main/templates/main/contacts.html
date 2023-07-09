@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block container  %}
+    <h1>{{ title }}</h1>
+    <main class="container">
+        <ul class="contact-list">
+            {% for contact in contacts %}
+                {% if contact.is_display %}
+                    <li class="contact-item">
+                        <div>
+                            <h2>{{ contact.name }}</h2>
+                            <p>Телефоны:</p>
+                            <ul class="contact-numbers">
+                                {% for phone_number in contact.phone_numbers.all %}
+                                    <li>{{ phone_number.number }}</li>
+                                {% endfor %}
+                            </ul>
+                           <p>Email: <a href="mailto:ardisspb@mail.ru">{{ contact.email }}</a></p>
+                            <p>Адрес: {{ contact.address }}</p>
+                            <div>
+                                {{ contact.map|safe|linebreaks }}
+                            </div>
+                        </div>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </main>
+{% endblock %}

@@ -1,17 +1,47 @@
-from django.shortcuts import render
+from django.views.generic import ListView
+
+from catalog.models import Catalog
+from catalog.utils import DataMixin
+from .models import About, Contact
 
 
-def index(request):
-    return render(request, 'main/index.html')
+class CatalogList(DataMixin, ListView):
+    model = Catalog
+    template_name = 'main/index.html'
+    context_object_name = 'catalogs'
+
+    def get_queryset(self):
+        return Catalog.objects.all()
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Наши направления:')
+        context.update(c_def)
+        return context
 
 
-def education(request):
-    return render(request, 'main/education.html')
+class ShowAbout(ListView):
+    template_name = 'main/about.html'
+    model = About
+    context_object_name = 'about'
+
+    def get_queryset(self):
+        return About.objects.get(pk=1)
 
 
-def office(request):
-    return render(request, 'main/office.html')
+class ContactList(DataMixin, ListView):
+    template_name = 'main/contacts.html'
+    model = Contact
+    context_object_name = 'contacts'
+
+    def get_queryset(self):
+        return Contact.objects.all()
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Контакты')
+        context.update(c_def)
+        return context
 
 
-def home(request):
-    return render(request, 'main/home.html')
+

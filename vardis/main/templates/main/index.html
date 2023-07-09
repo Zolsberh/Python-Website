@@ -1,15 +1,19 @@
 {% extends 'main/base.html' %}
 {% load static %}
+{% load main_tags %}
+
 {% block container  %}
-    <main class="container" style="background-image: url({% static 'image/index.jpg' %})">
-        <div class="item" style="width: 800px; height: 500px; background-color: aliceblue">
-            <h1>Блок 1</h1>
-        </div>
-        <div class="item" style="width: 800px; height: 500px; background-color: aliceblue">
-                <h1>Блок 2</h1>
-            </div>
-        <div class="item" style="width: 800px; height: 500px; background-color: aliceblue">
-                <h1>Блок 3</h1>
-            </div>
+    {% show_slider %}
+
+    <h1>{{ title }}</h1>
+    <main class="container">
+        {% for catalog in catalogs %}
+            <a href="{{ catalog.get_absolute_url }}">
+                <div class="item">
+                    <h1>{{ catalog.title }}</h1>
+                    <img src="{{ catalog.photo.url }}">
+                </div>
+            </a>
+        {% endfor %}
     </main>
 {% endblock %}

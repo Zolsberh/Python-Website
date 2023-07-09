@@ -41,8 +41,6 @@ INSTALLED_APPS = [
     'catalog.apps.CatalogConfig',
     'ckeditor',
     'ckeditor_uploader',
-    'mptt',
-    'django_mptt_admin',
 ]
 
 MIDDLEWARE = [
@@ -138,6 +136,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CKEDITOR_CONFIGS = {
     'default': {
         'skin': 'moono',
+        'enterMode': 1,
         # 'skin': 'office2013',
         'toolbar_Basic': [
             ['Source', '-', 'Bold', 'Italic']

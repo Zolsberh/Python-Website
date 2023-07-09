@@ -1,0 +1,43 @@
+{% extends 'main/base.html' %}
+{% block container  %}
+    <h1>{{ product.article }}.{{ product.name }}</h1>
+    <main class="container">
+        <div class="product-card">
+            <img class="product-image-main" src="{{ product.get_image }}">
+            <div class="right">
+                {% for img in product.images.all %}
+                    <img src="{{ img.image.url }}">
+                {% endfor %}
+            </div>
+            <div class="product-info">
+                <p>Артикул: {{ product.article }}</p>
+                {% if product.old_price %}
+                    <p class="product-old-price">Старая цена: {{ product.old_price }} руб.</p>
+                {% endif %}
+                <h4>Цена за штуку:</h4>
+                <p style="font-size: 18pt; font-weight: bold">{{ product.new_price }} руб.</p>
+                <h3>Габаритные размеры: {{ product.dimensions|safe|linebreaks }}</h3>
+                 {% if product.is_availability %}
+                    <p style="color: green; font-size: 16pt; font-weight: bold ">Наличие: Есть в наличии</p>
+                {% else %}
+                    <p style="color: red; font-size: 16pt; font-weight: bold">Наличие: Под заказ</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="product-desc">
+            <h3>Описание:</h3>
+            <p>{{ product.description|safe|linebreaks }}</p>
+        </div>
+        {% for material_cat in product.materials.all %}
+            <h1>{{ material_cat.name }}</h1>
+            <div class="product-material">
+                {% for material in material_cat.materials.all %}
+                    <div>
+                        <img src="{{ material.photo.url }}">
+                        <p>{{ material.name }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </main>
+{% endblock %}

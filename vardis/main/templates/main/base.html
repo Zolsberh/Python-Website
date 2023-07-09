@@ -1,14 +1,59 @@
 <!DOCTYPE html>
 {% load static %}
+{% load main_tags %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'megamenu/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'megamenu/css/ionicons.min.css' %}">
+    <link rel="stylesheet" href={% static 'skippr/skippr.css' %}>
 </head>
 <body>
-{% block container  %}
+<div class="logo">
+    <p>Мы выращиваем мебель для вас.</p>
+    <img src="{% static 'image/logo.png' %}">
+    {% show_numbers %}
+</div>
 
-{% endblock %}
+{% show_menu %}
+
+{% block container  %}{% endblock %}
+
+{% if page_obj.has_other_pages %}
+    <div>
+        <ul class="list-pages">
+            {% if page_obj.has_previous %}
+                <li class="page-num">
+                    <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
+                </li>
+            {% endif %}
+
+            {% for p in paginator.page_range %}
+                {% if page_obj.number == p %}
+                    <li class="page-num page-num-selected">{{ p }}</li>
+                {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+                    <li class="page-num">
+                        <a href="?page={{ p }}">{{ p }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <li class="page-num">
+                    <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+{% endif %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="{% static 'megamenu/js/megamenu.js' %}"></script>
+
+<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src={% static "skippr/skippr.js" %}></script>
+<script src="{% static 'js/slider_options.js' %}"></script>
 </body>
 </html>

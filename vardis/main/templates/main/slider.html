@@ -1,0 +1,11 @@
+{% load static %}
+<div class="slider">
+    <div id="theTarget">
+        {% for item in slider_items %}
+            <div class="slider_item">
+                <img src="{{ item.image.url }}" alt="">
+                <p>{{ item.title }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>

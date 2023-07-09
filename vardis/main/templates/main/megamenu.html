@@ -1,0 +1,37 @@
+{% load static %}
+<div class="menu-container">
+        <div class="menu">
+            <ul>
+                <li>
+                    <a href="{% url 'index' %}">Главная</a>
+                </li>
+                <li>
+                    <a href="{% url 'about' %}">О нас</a>
+                </li>
+                <li>
+                    <a href="">Каталог</a>
+                    <ul>
+                        {% for catalog in catalogs %}
+                            <li>
+                                {% if catalog.is_display %}
+                                    <a href="{{ catalog.get_absolute_url }}">{{ catalog.title }}</a>
+                                    <ul>
+                                        {% for category in catalog.categories.all %}
+                                            {% if category.is_display %}
+                                                <li>
+                                                    <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li>
+                    <a href="{% url 'contacts' %}">Контакты</a>
+                </li>
+            </ul>
+        </div>
+    </div>
