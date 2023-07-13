@@ -39,7 +39,7 @@ h1{
 
 .container{
     display: block;
-    width: 65%;
+    width: 50%;
     margin: 20px auto;
     box-sizing: border-box;
     background-color: #FFFFFF;
@@ -254,4 +254,8 @@ h1{
     font-size: 16pt;
     font-weight: bold;
     text-decoration: line-through;
+}
+
+.sidenav{
+    display: flex;
 }

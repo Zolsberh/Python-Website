@@ -52,13 +52,14 @@ class SearchList(DataMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title='Результат поиска')
+        search = self.request.GET.get('query')
+        c_def = self.get_user_context(title='Результат поиска', search=search)
         context.update(c_def)
         return context
 
     def get_queryset(self):
         query = self.request.GET.get('query')
         products = Product.objects.filter(
-            Q(article__icontains=query) | Q(name__icontains=query)
+            Q(article__icontains=query) | Q(name__iregex=query)
         )
         return products

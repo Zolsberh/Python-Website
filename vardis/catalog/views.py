@@ -33,7 +33,9 @@ class ProductList(DataMixin, ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         category = ProductCategory.objects.get(slug=self.kwargs['product_category_slug'])
-        c_def = self.get_user_context(title=str(category))
+        catalog = category.catalog.title
+        categories = ProductCategory.objects.filter(catalog__title=catalog)
+        c_def = self.get_user_context(title=str(category), categories=categories)
         context.update(c_def)
         return context
 
