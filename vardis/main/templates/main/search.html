@@ -2,6 +2,17 @@
 {% load static %}
 {% block container  %}
     <h1>{{ title }}</h1>
+     <div class="sidenav">
+        <ul>
+            {% for cat in cat_menu %}
+                <li>
+                    <a href="{{ cat.get_absolute_url }}">
+                        <h4>{{ cat.title }}</h4>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
     <main class="container">
         <ul class="product-list">
             {% for product in products %}

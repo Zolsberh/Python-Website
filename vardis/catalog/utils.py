@@ -1,4 +1,4 @@
-from .models import Catalog
+from .models import ProductCategory, Catalog
 
 
 class DataMixin:
@@ -7,7 +7,11 @@ class DataMixin:
     def get_user_context(self, **kwargs):
         context = kwargs
 
-        catalogs = Catalog.objects.all()
-        context['catalogs'] = catalogs
+        if 'catalog_title' in context.keys():
+            catalog_title = context['catalog_title']
+            cat_menu = ProductCategory.objects.filter(catalog__title=catalog_title)
+        else:
+            cat_menu = Catalog.objects.all()
+        context['cat_menu'] = cat_menu
 
         return context

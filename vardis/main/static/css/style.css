@@ -39,7 +39,7 @@ h1{
 
 .container{
     display: block;
-    width: 50%;
+    width: 60%;
     margin: 20px auto;
     box-sizing: border-box;
     background-color: #FFFFFF;
@@ -258,4 +258,39 @@ h1{
 
 .sidenav{
     display: flex;
+    position: absolute;
+    font-weight: bold;
+    font-size: 14pt;
+
 }
+
+.sidenav ul{
+    list-style: none;
+}
+
+.sidenav a{
+    text-decoration: none;
+    color: #482626;
+}
+
+.sidenav a:hover{
+    text-decoration: underline;
+    color: #831d1d;
+}
+
+.search{
+    padding: 1.2em 10em 1.2em 20em;
+}
+
+.search img{
+    vertical-align: middle;
+    width: 30px;
+}
+
+.search input{
+    width: 400px;
+    height: 30px;
+    border-radius: 5px;
+    display: inline;
+}
+

@@ -6,7 +6,7 @@ from catalog.utils import DataMixin
 from .models import About, Contact
 
 
-class CatalogList(DataMixin, ListView):
+class CatalogList(ListView):
     model = Catalog
     template_name = 'main/index.html'
     context_object_name = 'catalogs'
@@ -16,8 +16,7 @@ class CatalogList(DataMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title='Наши направления:')
-        context.update(c_def)
+        context['title'] = 'Наши направления'
         return context
 
 

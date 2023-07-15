@@ -4,9 +4,11 @@
     <div class="sidenav">
         <ul>
             {% for cat in cat_menu %}
-                <a href="{{ cat.get_absolute_url }}">
-                    <h4>{{ cat.name }}</h4>
-                </a>
+                <li>
+                    <a href="{{ cat.get_absolute_url }}">
+                        <h4>{{ cat.name }}</h4>
+                    </a>
+                </li>
             {% endfor %}
         </ul>
     </div>
