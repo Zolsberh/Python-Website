@@ -1,4 +1,4 @@
-import django.http
+from django.http import HttpRequest
 from django import template
 from main.models import Slider, Contact
 from catalog.models import Catalog
@@ -24,4 +24,3 @@ def show_numbers():
     contact = Contact.objects.get(name='Офис')
     phones = contact.phone_numbers.all()
     return {'phones': phones}
-

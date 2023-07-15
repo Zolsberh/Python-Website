@@ -51,4 +51,3 @@ class ContactPhone(models.Model):
     class Meta:
         verbose_name = 'Номер телефона'
         verbose_name_plural = 'Номера телефонов'
-

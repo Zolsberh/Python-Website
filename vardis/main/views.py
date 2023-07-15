@@ -1,6 +1,7 @@
 from django.views.generic import ListView
+from django.db.models import Q
 
-from catalog.models import Catalog
+from catalog.models import Catalog, Product
 from catalog.utils import DataMixin
 from .models import About, Contact
 
@@ -44,4 +45,21 @@ class ContactList(DataMixin, ListView):
         return context
 
 
+class SearchList(DataMixin, ListView):
+    model = Product
+    template_name = 'main/search.html'
+    context_object_name = 'products'
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        search = self.request.GET.get('query')
+        c_def = self.get_user_context(title='Результат поиска', search=search)
+        context.update(c_def)
+        return context
+
+    def get_queryset(self):
+        query = self.request.GET.get('query')
+        products = Product.objects.filter(
+            Q(article__icontains=query) | Q(name__iregex=query)
+        )
+        return products

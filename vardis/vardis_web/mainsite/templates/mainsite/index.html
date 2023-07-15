@@ -1,0 +1,22 @@
+{% extends 'mainsite/base.html' %}
+{% load static %}
+{% block container %}
+
+    <div class="container" style="background-image: url({% static 'images/index_background.jpg' %});
+            background-size: cover;">
+
+        <div class="education">
+            <h2>Мебель для образовательных учреждений</h2>
+            <img src="{% static 'images/mebel-dlya-devochki-1.jpg' %}" alt="">
+        </div>
+
+        <div class="office">
+            <h2>Мебель для офиса</h2>
+        </div>
+
+        <div class="home">
+            <h2>Мебель для дома</h2>
+        </div>
+
+    </div>
+{% endblock %}

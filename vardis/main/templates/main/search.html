@@ -1,20 +1,12 @@
 {% extends 'main/base.html' %}
+{% load static %}
 {% block container  %}
     <h1>{{ title }}</h1>
-    <div class="sidenav">
-        <ul>
-            {% for cat in cat_menu %}
-                <a href="{{ cat.get_absolute_url }}">
-                    <h4>{{ cat.name }}</h4>
-                </a>
-            {% endfor %}
-        </ul>
-    </div>
     <main class="container">
         <ul class="product-list">
             {% for product in products %}
                 <li class="product-item">
-                    <img src="{{ product.get_image }}">
+                    <img src="{{ product.get_image }}" alt="">
                     <h3 class="category-item-name">{{ product.article }}.{{ product.name }}</h3>
                     {% if product.old_price %}
                         <p class="product-old-price">{{ product.old_price }} руб.</p>
